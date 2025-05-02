@@ -56,9 +56,7 @@ function doGet(e) {
       timestamp,
       formData.name,
       formData.phone,
-      formData.location,
-      formData.face_photo,
-      formData.body_photo
+      formData.location
     ];
     
     // Append the data to the sheet
