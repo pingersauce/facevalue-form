@@ -63,19 +63,18 @@
             url.searchParams.append('phone', formData.get('phone'));
             url.searchParams.append('location', formData.get('location'));
             
-            // Start the redirect timer immediately
-            setTimeout(function() {
-                window.location.replace('success.html');
-            }, 5000);
-            
             // Submit the form data
             fetch(url.toString(), {
                 method: 'GET',
                 mode: 'no-cors'
             }).catch(error => {
                 console.error('Error:', error);
-                // Don't show error to user since we're redirecting anyway
             });
+
+            // Force redirect after 5 seconds regardless of fetch status
+            setTimeout(() => {
+                document.location.href = 'success.html';
+            }, 5000);
             
             return false;
         }
