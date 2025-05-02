@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply to FaceValue</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Apply Now</h1>
+        <p class="intro-text">Congratulations on being invited to facevalue once you submit your info our ai will scan your profile and rank you based on looks. you will then be invited to parties in your area with others ranked most similarly to you!</p>
+        <form id="userInfoForm" action="https://docs.google.com/forms/d/e/1FAIpQLSesAM8nVXc1wqlBihd76N5n3YeDzWSNdZ3xat8wRUBbNdOFgA/formResponse" method="POST" target="_blank">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="entry.527562252" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="entry.839000508" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="entry.2125509256" required placeholder="e.g., City, State">
+            </div>
+            <div class="form-group">
+                <label for="photo1">Face Photo:</label>
+                <input type="file" id="photo1" name="photo1" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="photo2">Full Body Photo:</label>
+                <input type="file" id="photo2" name="photo2" accept="image/*" required>
+            </div>
+            <button type="submit" onclick="return handleSubmit(event)">Submit</button>
+        </form>
+    </div>
+    <script>
+        function handleSubmit(event) {
+            // Prevent default form submission
+            event.preventDefault();
+            
+            // Get form data
+            const form = document.getElementById('userInfoForm');
+            const formData = new FormData(form);
+            
+            // Log form data for debugging
+            console.log('Submitting form with data:');
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+            
+            // Show loading state
+            const container = document.querySelector('.container');
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <div style="width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #5c67f2; border-radius: 50%; margin: 20px auto; animation: spin 1s linear infinite;"></div>
+                    <p style="color: #333; font-size: 1.1em; margin-top: 20px;">Our AI agent is now ranking your profile based on looks</p>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+
+            // Submit the form
+            form.submit();
+            
+            // Redirect to success page after 15 seconds
+            setTimeout(function() {
+                window.location.href = 'success.html';
+            }, 15000);
+            
+            return false;
+        }
+    </script>
+</body>
+</html>

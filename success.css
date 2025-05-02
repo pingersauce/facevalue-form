@@ -1,0 +1,45 @@
+/* Basic styling for the success page, mirroring index.html */
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center; /* Center text within the container */
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px; /* Slightly more padding for emphasis */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Slightly wider */
+}
+
+h1 {
+    color: #5c67f2; /* Use the button color for the heading */
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.success-message {
+    color: #333;
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+/* Minimal responsive adjustments */
+@media (max-width: 500px) {
+    .container {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    .success-message {
+        font-size: 1em;
+    }
+}
