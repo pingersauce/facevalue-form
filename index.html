@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Apply Now</h1>
         <p class="intro-text">Congratulations on being invited to facevalue once you submit your info our ai will scan your profile and rank you based on looks. you will then be invited to parties in your area with others ranked most similarly to you!</p>
-        <form id="userInfoForm" onsubmit="return handleSubmit(event)">
+        <form id="userInfoForm" action="https://script.google.com/macros/s/AKfycbzCc61ZnTmexNVztiuhTqWecyEzedR6q9DAp3R3FElDMKcd6Nz2mVaTsD8VSyyY2xMw/exec" method="GET" target="hidden-iframe" onsubmit="return handleSubmit(event)">
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -33,6 +33,7 @@
             </div>
             <button type="submit">Submit</button>
         </form>
+        <iframe name="hidden-iframe" style="display:none;"></iframe>
     </div>
     <script>
         async function handleSubmit(event) {
@@ -62,8 +63,14 @@
                 const facePhoto = await fileToBase64(formData.get('face_photo'));
                 const bodyPhoto = await fileToBase64(formData.get('body_photo'));
                 
-                // Prepare data for submission
-                const data = {
+                // Create a new form for submission
+                const submitForm = document.createElement('form');
+                submitForm.method = 'GET';
+                submitForm.action = form.action;
+                submitForm.target = 'hidden-iframe';
+                
+                // Add form fields
+                const fields = {
                     name: formData.get('name'),
                     phone: formData.get('phone'),
                     location: formData.get('location'),
@@ -71,15 +78,18 @@
                     body_photo: bodyPhoto
                 };
                 
-                // Create URL with parameters
-                const url = new URL('https://script.google.com/macros/s/AKfycbzCc61ZnTmexNVztiuhTqWecyEzedR6q9DAp3R3FElDMKcd6Nz2mVaTsD8VSyyY2xMw/exec');
-                Object.keys(data).forEach(key => url.searchParams.append(key, data[key]));
-                
-                // Submit using fetch
-                const response = await fetch(url.toString(), {
-                    method: 'GET',
-                    mode: 'no-cors'
+                // Add fields to form
+                Object.entries(fields).forEach(([key, value]) => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = value;
+                    submitForm.appendChild(input);
                 });
+                
+                // Add form to document and submit
+                document.body.appendChild(submitForm);
+                submitForm.submit();
                 
                 // Redirect to success page after 15 seconds
                 setTimeout(function() {
