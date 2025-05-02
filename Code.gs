@@ -42,11 +42,19 @@ function doOptions(e) {
 
 function doGet(e) {
   try {
+    // Log the incoming request
+    console.log('Received request with parameters:', e.parameter);
+    
     // Get the active spreadsheet and sheet
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
     // Get form data from URL parameters
     var formData = e.parameter;
+    
+    // Validate required fields
+    if (!formData.name || !formData.phone || !formData.location) {
+      throw new Error('Missing required fields');
+    }
     
     // Get the current timestamp
     var timestamp = new Date();
@@ -62,11 +70,19 @@ function doGet(e) {
     // Append the data to the sheet
     sheet.appendRow(rowData);
     
+    // Log success
+    console.log('Successfully added row:', rowData);
+    
     // Return success response
-    return HtmlService.createHtmlOutput('Success');
+    return ContentService.createTextOutput('Success')
+      .setMimeType(ContentService.MimeType.TEXT);
     
   } catch(error) {
+    // Log error
+    console.error('Error in doGet:', error);
+    
     // Return error response
-    return HtmlService.createHtmlOutput('Error: ' + error.toString());
+    return ContentService.createTextOutput('Error: ' + error.toString())
+      .setMimeType(ContentService.MimeType.TEXT);
   }
 } 

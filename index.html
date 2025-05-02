@@ -63,6 +63,8 @@
             url.searchParams.append('phone', formData.get('phone'));
             url.searchParams.append('location', formData.get('location'));
             
+            console.log('Submitting form data to:', url.toString());
+            
             // Submit the form data
             fetch(url.toString(), {
                 method: 'GET',
@@ -71,16 +73,25 @@
                 }
             })
             .then(response => {
-                console.log('Form submitted successfully');
+                console.log('Response status:', response.status);
+                return response.text();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                // Only redirect if we got a successful response
+                if (data.includes('Success')) {
+                    setTimeout(() => {
+                        document.location.href = 'success.html';
+                    }, 5000);
+                } else {
+                    console.error('Form submission failed:', data);
+                    alert('There was an error submitting your form. Please try again.');
+                }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting your form. Please try again.');
             });
-
-            // Force redirect after 5 seconds regardless of fetch status
-            setTimeout(() => {
-                document.location.href = 'success.html';
-            }, 5000);
             
             return false;
         }
