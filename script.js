@@ -27,6 +27,6 @@ document.getElementById('userInfoForm').addEventListener('submit', function(even
 
     // Redirect to success page after 15 seconds
     setTimeout(function() {
-        window.location.href = 'success.html';
+    window.location.href = 'success.html';
     }, 15000);
 }); 
