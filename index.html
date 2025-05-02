@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Apply Now</h1>
         <p class="intro-text">Congratulations on being invited to facevalue once you submit your info our ai will scan your profile and rank you based on looks. you will then be invited to parties in your area with others ranked most similarly to you!</p>
-        <form id="userInfoForm" onsubmit="return handleSubmit(event)">
+        <form id="userInfoForm" action="https://script.google.com/macros/s/AKfycbwwKf65VL3NbDzZZL5OLxmCe4QMct9_6cTqBcGp7XguHDcEIYwarzh0DLcbk9ZbL5g1/exec" method="POST" onsubmit="return handleSubmit(event)">
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -34,12 +34,8 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-    <!-- Hidden iframe for form submission -->
-    <iframe name="hidden-iframe" style="display:none;"></iframe>
     <script>
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
+        function handleSubmit(event) {
             // Show loading state
             const container = document.querySelector('.container');
             container.innerHTML = `
@@ -55,69 +51,12 @@
                 </style>
             `;
 
-            try {
-                // Get form data
-                const form = document.getElementById('userInfoForm');
-                const formData = new FormData(form);
-                
-                // Convert files to base64
-                const facePhoto = await fileToBase64(formData.get('face_photo'));
-                const bodyPhoto = await fileToBase64(formData.get('body_photo'));
-                
-                // Create a new form for submission
-                const submitForm = document.createElement('form');
-                submitForm.method = 'POST';
-                submitForm.action = 'https://script.google.com/macros/s/AKfycbwwKf65VL3NbDzZZL5OLxmCe4QMct9_6cTqBcGp7XguHDcEIYwarzh0DLcbk9ZbL5g1/exec';
-                submitForm.target = 'hidden-iframe';
-                
-                // Add form fields
-                const fields = {
-                    name: formData.get('name'),
-                    phone: formData.get('phone'),
-                    location: formData.get('location'),
-                    face_photo_url: facePhoto,
-                    body_photo_url: bodyPhoto
-                };
-                
-                // Create and append hidden inputs
-                for (const [key, value] of Object.entries(fields)) {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = value;
-                    submitForm.appendChild(input);
-                }
-                
-                // Add form to document and submit
-                document.body.appendChild(submitForm);
-                submitForm.submit();
-                
-                // Remove the form after submission
-                setTimeout(() => {
-                    document.body.removeChild(submitForm);
-                }, 1000);
-                
-                // Redirect to success page after 15 seconds
-                setTimeout(function() {
-                    window.location.href = 'success.html';
-                }, 15000);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                alert('There was an error submitting your form. Please try again.');
-                location.reload();
-            }
-            
-            return false;
-        }
-        
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
+            // Redirect to success page after 15 seconds
+            setTimeout(function() {
+                window.location.href = 'success.html';
+            }, 15000);
+
+            return true;
         }
     </script>
 </body>
