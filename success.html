@@ -10,8 +10,28 @@
     <div class="container">
         <h1>Welcome to FaceValue!</h1>
         <p class="success-message">Congratulations on enrolling in FaceValue. You will now be invited to all upcoming events in your area with others ranked in your league. Please allow up to 24 hours for our AI agent to complete your profile scan.</p>
-        <!-- Optional: Link back to home or provide more info -->
-        <!-- <a href="index.html">Back to Form</a> -->
+        
+        <div class="rating-container">
+            <h2>Your Initial Rating</h2>
+            <div id="rating" class="rating"></div>
+        </div>
     </div>
+
+    <script>
+        // Array of possible ratings
+        const ratings = [
+            { text: "Fine Shyt!", class: "fine" },
+            { text: "Mid", class: "mid" },
+            { text: "Chopped", class: "chopped" }
+        ];
+
+        // Get random rating
+        const randomRating = ratings[Math.floor(Math.random() * ratings.length)];
+
+        // Display the rating
+        const ratingElement = document.getElementById('rating');
+        ratingElement.textContent = randomRating.text;
+        ratingElement.classList.add(randomRating.class);
+    </script>
 </body>
 </html>

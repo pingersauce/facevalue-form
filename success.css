@@ -31,6 +31,48 @@ h1 {
     font-size: 1.1em;
 }
 
+/* Rating styles */
+.rating-container {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.rating-container h2 {
+    color: #333;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+}
+
+.rating {
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+/* Different styles for each rating */
+.rating.fine {
+    color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+}
+
+.rating.mid {
+    color: #ffc107;
+    background-color: rgba(255, 193, 7, 0.1);
+    border: 2px solid #ffc107;
+}
+
+.rating.chopped {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 2px solid #dc3545;
+}
+
 /* Minimal responsive adjustments */
 @media (max-width: 500px) {
     .container {
@@ -41,5 +83,8 @@ h1 {
     }
     .success-message {
         font-size: 1em;
+    }
+    .rating {
+        font-size: 2em;
     }
 }
